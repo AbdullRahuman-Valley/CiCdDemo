@@ -36,6 +36,9 @@ jobs:
     - name: Publish App
       run: dotnet publish --configuration Release --output publish
 
+    - name: Publish Windows EXE
+      run: dotnet publish -c Release -r win-x64 --self-contained true -o publish
+      
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
