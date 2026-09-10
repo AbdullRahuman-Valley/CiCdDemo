@@ -38,8 +38,11 @@ public class TaskManagerApp
                 case "4":
                     Console.WriteLine("Goodbye!");
                     return;
+                case "5":
+                    DeleteTask();
+                    break;
                 default:
-                    Console.WriteLine("Invalid choice. Please enter a number from 1 to 4.");
+                    Console.WriteLine("Invalid choice. Please enter a number from 1 to 5.");
                     break;
             }
         }
@@ -53,6 +56,7 @@ public class TaskManagerApp
         Console.WriteLine("  2. List Tasks");
         Console.WriteLine("  3. Complete Task");
         Console.WriteLine("  4. Exit");
+        Console.WriteLine("  5. Delete Task");
         Console.Write("Select an option: ");
     }
 
@@ -111,6 +115,27 @@ public class TaskManagerApp
         else
         {
             Console.WriteLine($"No incomplete task found with id #{id}.");
+        }
+    }
+
+    private void DeleteTask()
+    {
+        Console.Write("Enter task id to delete: ");
+        string input = (Console.ReadLine() ?? string.Empty).Trim();
+
+        if (!int.TryParse(input, out int id))
+        {
+            Console.WriteLine("Invalid id. Please enter a number.");
+            return;
+        }
+
+        if (_taskManager.DeleteTask(id))
+        {
+            Console.WriteLine($"Task #{id} deleted.");
+        }
+        else
+        {
+            Console.WriteLine($"No task found with id #{id}.");
         }
     }
 }
